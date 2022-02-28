@@ -2,10 +2,108 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Users {
+    id_user   String @id @default(uuid())
+    name      String
+    email     String @unique
+    password  String
+    phone     String @unique
+    adress_id String
+
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+    @@map("users")
+}
+
+model Admin {
+    id_admin   String   @id @default(uuid())
+    name       String
+    email      String   @unique
+    password   String
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+    @@map("admins")
+}
+
+model Adresses {
+    id_adress         String   @id @default(uuid())
+    adress            String
+    adress_complement String
+    zip               String
+    zone              String
+    city              String
+    obs               String
+    created_at        DateTime @default(now())
+    updated_at        DateTime @default(now())
+
+
+    @@map("adresses")
+}
+
+model Products {
+    id_product  String   @id @default(uuid())
+    description String   @unique
+    category    String
+    image       String
+    price       Int
+    desc        String
+    size        String
+    created_at  DateTime @default(now())
+    updated_at  DateTime @default(now())
+
+
+    @@map("products")
+}
+
+model Orders {
+    id_order        String @id @default(uuid())
+    id_product      String
+    quantity        Int
+    description     String
+    id_adress       String
+    amount          Int
+    driver_id       String
+    delivery_method String
+    status          String
+
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+
+
+    @@map("orders")
+}
+
+model Drivers {
+    id_driver String @id @default(uuid())
+    name      String @unique
+    email     String @unique
+    password  String
+
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+
+    @@map("drivers")
+}
+
+model Categories {
+    id_category String @id @default(uuid())
+    description String
+
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+
+    @@map("categories")
 }
