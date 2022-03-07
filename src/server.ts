@@ -1,16 +1,12 @@
-import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
-import { routes } from './routes';
+import 'express-async-errors';
+import routes from '../src/routes/index';
 
 import AppError from './errors/AppError';
 
-
 const app = express();
+
 app.use(express.json());
-
-app.listen(3333, () => { console.log('🚀 Servidor rodando ');
-});
-
 app.use(routes);
 
 app.use(
@@ -26,6 +22,10 @@ app.use(
         .json({ status: 'error', message: 'Internal server error' });
     },
     );
+
+    app.listen(3333, () => { console.log('🚀 Servidor rodando ');
+});
+
 
 
 

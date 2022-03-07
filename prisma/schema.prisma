@@ -21,6 +21,7 @@ model Users {
     created_at DateTime @default(now())
     updated_at DateTime @default(now())
 
+    adresses Adresses[]
     @@map("users")
 }
 
@@ -45,6 +46,9 @@ model Adresses {
     obs               String
     created_at        DateTime @default(now())
     updated_at        DateTime @default(now())
+    user_id           String   @unique
+    user              Users    @relation(fields: [user_id], references: [id_user])
+
 
 
     @@map("adresses")
